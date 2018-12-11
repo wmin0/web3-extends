@@ -12,6 +12,10 @@ class Native {
     return new Decimal(Web3.utils.fromWei(amount.toString(), 'ether'))
   }
 
+  valueFromAmount(amount) {
+    return new Value({ token: this, amount: this.fromUnit(amount) })
+  }
+
   async balanceOf({ web3, account }) {
     return web3.eth.getBalance(account)
   }

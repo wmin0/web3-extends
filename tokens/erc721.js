@@ -7,6 +7,10 @@ const loadContract = ({ web3, addr }) => {
 }
 
 class ERC721 extends Base {
+  valueFromID(id) {
+    return new Value({ token: this, id })
+  }
+
   async balanceOf({ web3, token, account }) {
     let contract = loadContract({ web3, addr: this.addr })
     return contract.methods.balanceOf(account).call()
