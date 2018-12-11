@@ -19,6 +19,10 @@ class Base {
     return new Value({ token: this, amount: this.fromUnit(amount) })
   }
 
+  valueFromID(id) {
+    throw 'not implemented'
+  }
+
   async balanceOf({ web3, account }) {
     throw 'not implemented'
   }

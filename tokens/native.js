@@ -3,17 +3,13 @@ const Web3 = require('web3')
 
 const Base = require('./base')
 
-class Native {
+class Native extends Base {
   toUnit(amount) {
     return new Decimal(Web3.utils.toWei(amount.toString(), 'ether'))
   }
 
   fromUnit(amount) {
     return new Decimal(Web3.utils.fromWei(amount.toString(), 'ether'))
-  }
-
-  valueFromAmount(amount) {
-    return new Value({ token: this, amount: this.fromUnit(amount) })
   }
 
   async balanceOf({ web3, account }) {
