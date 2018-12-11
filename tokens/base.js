@@ -1,5 +1,7 @@
 const Decimal = require('decimal.js')
 
+const Value = require('../value')
+
 class Base {
   constructor({ addr }) {
     this.addr = addr
@@ -11,6 +13,14 @@ class Base {
 
   fromUnit(amount) {
     return new Decimal(amount)
+  }
+
+  valueFromAmount(amount) {
+    return new Value({ token: this, amount: this.fromUnit(amount) })
+  }
+
+  valueFromID(id) {
+    return new Value({ token: this, id })
   }
 
   async balanceOf({ web3, account }) {

@@ -43,7 +43,7 @@ class Handler {
       web3: this.web3,
       account: accounts[0],
     })
-    return new Value({ token, amount: token.fromUnit(amount) })
+    return token.valueFromAmount(amount)
   }
 
   async transfer({ to, value }) {

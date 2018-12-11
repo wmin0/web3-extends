@@ -1,5 +1,6 @@
 const Base = require('./base')
 const Contracts = require('../contracts')
+const Value = require('../value')
 
 const loadContract = ({ web3, addr }) => {
   return new web3.eth.Contract(Contracts.IERC721.abi, addr)
