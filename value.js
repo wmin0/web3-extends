@@ -11,6 +11,14 @@ class Value {
     }
   }
 
+  toAmount() {
+    return this.token.toUnit(this.amount)
+  }
+
+  toID() {
+    return this.id
+  }
+
   _assertArithmetic(v) {
     if (this.token !== v.token) {
       throw 'invalid token'
