@@ -77,6 +77,13 @@ class Handler {
     }
     return value.token.approve(args)
   }
+
+  async tokenURI({ value }) {
+    if (!(value.token instanceof Tokens.ERC721Metadata)) {
+      throw 'only allow erc721 metadata'
+    }
+    return value.token.tokenURI({ web3, id: value.id })
+  }
 }
 
 module.exports = Handler

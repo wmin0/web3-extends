@@ -6,7 +6,7 @@ const loadContract = ({ web3, addr }) => {
 }
 
 class ERC20 extends Base {
-  async balanceOf({ web3, token, account }) {
+  async balanceOf({ web3, account }) {
     let contract = loadContract({ web3, addr: this.addr })
     return contract.methods.balanceOf(account).call()
   }
