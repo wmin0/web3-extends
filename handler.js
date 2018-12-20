@@ -30,7 +30,7 @@ class Handler {
     if (contract) {
       return contract
     }
-    contract = this.web3.eth.Contract(raw.abi, addr)
+    contract = new this.web3.eth.Contract(raw.abi, addr)
     this.contractCache[key] = contract
     return contract
   }
