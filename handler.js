@@ -6,7 +6,6 @@ const Value = require('./value')
 class Handler {
   constructor({ web3 }) {
     this.web3 = web3
-    this.accounts = null
     this.tokenCache = {}
     this.contractCache = {}
   }
