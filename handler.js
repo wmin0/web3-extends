@@ -3,29 +3,49 @@ const Tokens = require('./tokens')
 const Contracts = require('./contracts')
 const Value = require('./value')
 
-let tokenCache = {}
-
 class Handler {
   constructor({ web3 }) {
     this.web3 = web3
     this.accounts = null
+    this.tokenCache = {}
+    this.contractCache = {}
+  }
+
+  decodeLog({ contract, receipt, name }) {
+    let abi = contract.options.jsonInterface.find(
+      (i) => i.name === name
+    )
+    let eventRaw = receipt.logs.find(
+      (event) => event.topics[0] === abi.signature
+    )
+    return this.web3.eth.abi.decodeLog(
+      abi.inputs,
+      eventRaw.data,
+      eventRaw.topics
+    )
   }
 
   loadContract({ raw, addr }) {
-    let abi = raw.abi
-    return new this.web3.eth.Contract(abi, addr)
+    let key = `${raw.contractName}.${addr}`
+    let contract = this.contractCache[key]
+    if (contract) {
+      return contract
+    }
+    contract = this.web3.eth.Contract(abi, addr)
+    this.contractCache[key] = contract
+    return contract
+  }
+
+  async getBlockNumber() {
+    return this.web3.eth.getBlockNumber()
   }
 
   async getAccounts() {
-    if (this.accounts) {
-      return this.accounts
-    }
-    this.accounts = await this.web3.eth.getAccounts()
-    return this.accounts
+    return this.web3.eth.getAccounts()
   }
 
   async loadToken({ addr = constants.ZeroAddress, type = Tokens.Native } = {}) {
-    let token = tokenCache[addr]
+    let token = this.tokenCache[addr]
     if (token) {
       return token
     }
@@ -33,7 +53,7 @@ class Handler {
       throw 'invalid addr'
     }
     token = await type.load({ web3: this.web3, addr })
-    tokenCache[addr] = token
+    this.tokenCache[addr] = token
     return token
   }
 
