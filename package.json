@@ -1,6 +1,6 @@
 {
   "name": "@wmin0/web3-extends",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "web3 extends utils",
   "main": "index.js",
   "scripts": {
