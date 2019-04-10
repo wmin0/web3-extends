@@ -11,14 +11,12 @@ class ERC721 extends Base {
     return new Value({ token: this, id })
   }
 
-  async balanceOf({ web3, account }) {
-    let contract = loadContract({ web3, addr: this.addr })
-    return contract.methods.balanceOf(account).call()
+  async balanceOf({ account }) {
+    return this.contract.methods.balanceOf(account).call()
   }
 
-  async transfer({ web3, account, to, id }) {
-    let contract = loadContract({ web3, addr: this.addr })
-    let receipt = await contract.methods
+  async transfer({ account, to, id }) {
+    let receipt = await this.contract.methods
       .safeTransferFrom(account, to, id)
       .send({ from: account })
     let transferEvent = receipt.events.Transfer
@@ -27,9 +25,8 @@ class ERC721 extends Base {
     }
   }
 
-  async approve({ web3, account, to, id }) {
-    let contract = loadContract({ web3, addr: this.addr })
-    let receipt = await contract.methods
+  async approve({ account, to, id }) {
+    let receipt = await this.contract.methods
       .approve(to, id)
       .send({ from: account })
     let transferEvent = receipt.events.Approval
@@ -40,7 +37,8 @@ class ERC721 extends Base {
 }
 
 ERC721.load = async ({ web3, addr }) => {
-  return new ERC721({ addr })
+  let contract = loadContract({ web3, addr })
+  return new ERC721({ web3, addr, contract })
 }
 
 module.exports = ERC721

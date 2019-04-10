@@ -14,12 +14,11 @@ class ERC721Metadata extends ERC721 {
     this.uri = {}
   }
 
-  async tokenURI({ web3, id }) {
+  async tokenURI({ id }) {
     if (this.uri[id]) {
       return this.uri[id]
     }
-    let contract = loadContract({ web3, addr: this.addr })
-    let uri = await contract.methods.tokenURI(id).call()
+    let uri = await this.contract.methods.tokenURI(id).call()
     this.uri[id] = uri
     return uri
   }
@@ -34,7 +33,7 @@ ERC721Metadata.load = async ({ web3, addr }) => {
     contract.methods.name().call(),
     contract.methods.symbol().call(),
   ])
-  return new ERC721Metadata({ addr, name, symbol })
+  return new ERC721Metadata({ web3, addr, contract, name, symbol })
 }
 
 module.exports = ERC721Metadata

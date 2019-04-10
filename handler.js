@@ -59,7 +59,6 @@ class Handler {
   async balanceOf({ token }) {
     let accounts = await this.getAccounts()
     let amount = await token.balanceOf({
-      web3: this.web3,
       account: accounts[0],
     })
     return token.valueFromAmount(amount)
@@ -68,7 +67,6 @@ class Handler {
   async transfer({ to, value }) {
     let accounts = await this.getAccounts()
     let args = {
-      web3: this.web3,
       account: accounts[0],
       to: to
     }
@@ -84,7 +82,6 @@ class Handler {
   async approve({ to, value }) {
     let accounts = await this.getAccounts()
     let args = {
-      web3: this.web3,
       account: accounts[0],
       to: to
     }
@@ -101,7 +98,7 @@ class Handler {
     if (!(value.token instanceof Tokens.ERC721Metadata)) {
       throw 'only allow erc721 metadata'
     }
-    return value.token.tokenURI({ web3, id: value.id })
+    return value.token.tokenURI({ id: value.id })
   }
 }
 

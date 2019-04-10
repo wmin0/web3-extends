@@ -12,12 +12,12 @@ class Native extends Base {
     return new Decimal(Web3.utils.fromWei(amount.toString(), 'ether'))
   }
 
-  async balanceOf({ web3, account }) {
-    return web3.eth.getBalance(account)
+  async balanceOf({ account }) {
+    return this.web3.eth.getBalance(account)
   }
 
-  async transfer({ web3, account, to, amount }) {
-    await web3.eth.sendTransaction({
+  async transfer({ account, to, amount }) {
+    await this.web3.eth.sendTransaction({
       from: account,
       to: addr,
       value: amount
@@ -26,7 +26,7 @@ class Native extends Base {
 }
 
 Native.load = async ({ web3, addr }) => {
-  return new Native({ addr })
+  return new Native({ web3, addr })
 }
 
 module.exports = Native

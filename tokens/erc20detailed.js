@@ -36,7 +36,7 @@ ERC20Detailed.load = async ({ web3, addr }) => {
     contract.methods.symbol().call(),
     contract.methods.decimals().call(),
   ])
-  return new ERC20Detailed({ addr, name, symbol, decimals })
+  return new ERC20Detailed({ web3, addr, contract, name, symbol, decimals })
 }
 
 module.exports = ERC20Detailed

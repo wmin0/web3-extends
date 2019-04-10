@@ -3,8 +3,10 @@ const Decimal = require('decimal.js')
 const Value = require('../value')
 
 class Base {
-  constructor({ addr }) {
+  constructor({ web3, addr, contract }) {
+    this.web3 = web3
     this.addr = addr
+    this.contract = contract
   }
 
   toUnit(amount) {
@@ -23,15 +25,15 @@ class Base {
     throw 'not implemented'
   }
 
-  async balanceOf({ web3, account }) {
+  async balanceOf({ account }) {
     throw 'not implemented'
   }
 
-  async transfer({ web3, account, to, amount, id }) {
+  async transfer({ account, to, amount, id }) {
     throw 'not implemented'
   }
 
-  async approve({ web3, account, to, amount, id }) {
+  async approve({ account, to, amount, id }) {
     throw 'not implemented'
   }
 }
