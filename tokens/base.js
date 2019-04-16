@@ -18,7 +18,10 @@ class Base {
   }
 
   valueFromAmount(amount) {
-    return new Value({ token: this, amount: this.fromUnit(amount) })
+    return new Value({
+      token: this,
+      amount: this.fromUnit(amount.toString())
+    })
   }
 
   valueFromID(id) {

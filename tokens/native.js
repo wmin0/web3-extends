@@ -4,11 +4,11 @@ const Base = require('./base')
 
 class Native extends Base {
   toUnit(amount) {
-    return new Decimal(this.web3.toWei(amount.toString(), 'ether'))
+    return new Decimal(this.web3.utils.toWei(amount.toString(), 'ether'))
   }
 
   fromUnit(amount) {
-    return new Decimal(this.web3.fromWei(amount.toString(), 'ether'))
+    return new Decimal(this.web3.utils.fromWei(amount.toString(), 'ether'))
   }
 
   async balanceOf({ account }) {
