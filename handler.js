@@ -1,3 +1,6 @@
+
+const Web3 = require('web3')
+
 const constants = require('./constants')
 const Tokens = require('./tokens')
 const Contracts = require('./contracts')
@@ -5,7 +8,7 @@ const Value = require('./value')
 
 class Handler {
   constructor({ web3 }) {
-    this.web3 = web3
+    this.web3 = new Web3(web3.currentProvider)
     this.tokenCache = {}
     this.contractCache = {}
   }
